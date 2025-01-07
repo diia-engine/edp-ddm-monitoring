@@ -1,0 +1,2074 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-reg-config-audit
+data:
+  reg-config-audit.json: |-
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "id": 44,
+      "iteration": 1741258514257,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 27,
+          "panels": [],
+          "title": "1. Container resources",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Limit"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 81
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Request"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 76
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Pod"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Container"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Usage"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 10,
+            "x": 0,
+            "y": 1
+          },
+          "id": 18,
+          "options": {
+            "frameIndex": 1,
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Usage"
+              }
+            ]
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "label_join(\n  sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"$ns\", container!=\"\", image!=\"\"}) by (pod, container),\n  \"pod_container\", \"-\", \"pod\", \"container\"\n)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "label_join(\n  sum by (pod, container) (kube_pod_container_resource_requests{namespace=\"$ns\", resource=\"memory\"}),\n  \"pod_container\", \"-\", \"pod\", \"container\"\n)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "B"
+            },
+            {
+              "expr": "label_join(\n  sum by (pod, container) (kube_pod_container_resource_limits{namespace=\"$ns\", resource=\"memory\"}),\n  \"pod_container\", \"-\", \"pod\", \"container\"\n)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
+            }
+          ],
+          "title": "Container memory",
+          "transformations": [
+            {
+              "id": "filterByValue",
+              "options": {
+                "filters": [
+                  {
+                    "config": {
+                      "id": "isNotNull",
+                      "options": {}
+                    },
+                    "fieldName": "Value #A"
+                  }
+                ],
+                "match": "any",
+                "type": "include"
+              }
+            },
+            {
+              "id": "seriesToColumns",
+              "options": {
+                "byField": "pod_container"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Time 1": true,
+                  "Time 2": true,
+                  "Time 3": true,
+                  "Time 4": true,
+                  "Time 5": true,
+                  "Value #C": false,
+                  "Value #D": true,
+                  "Value #E": true,
+                  "container 2": true,
+                  "container 3": true,
+                  "container 4": true,
+                  "container 5": true,
+                  "pod 2": true,
+                  "pod 3": true,
+                  "pod 4": true,
+                  "pod 5": true,
+                  "pod_container": true
+                },
+                "indexByName": {
+                  "Time 1": 6,
+                  "Time 2": 7,
+                  "Time 3": 10,
+                  "Time 4": 13,
+                  "Time 5": 17,
+                  "Value #A": 2,
+                  "Value #B": 3,
+                  "Value #C": 4,
+                  "Value #D": 16,
+                  "Value #E": 20,
+                  "container 1": 1,
+                  "container 2": 8,
+                  "container 3": 11,
+                  "container 4": 14,
+                  "container 5": 18,
+                  "pod 1": 0,
+                  "pod 2": 9,
+                  "pod 3": 12,
+                  "pod 4": 15,
+                  "pod 5": 19,
+                  "pod_container": 5
+                },
+                "renameByName": {
+                  "Value #A": "Usage",
+                  "Value #B": "Request",
+                  "Value #C": "Limit",
+                  "container 1": "Container",
+                  "pod 1": "Pod"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Type"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 91
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Service"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 308
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Replicas"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 71
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 7,
+            "x": 10,
+            "y": 1
+          },
+          "id": 20,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Replicas"
+              }
+            ]
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "label_replace(\n  sum by (deployment) (kube_deployment_spec_replicas{namespace=\"$ns\"}),\n  \"resource_type\", \"Deployment\", \"\", \"\"\n)\nor\nlabel_replace(\n  sum by (statefulset) (kube_statefulset_replicas{namespace=\"$ns\"}),\n  \"resource_type\", \"StatefulSet\", \"\", \"\"\n)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Replicas count",
+          "transformations": [
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Service",
+                "binary": {
+                  "left": "deployment",
+                  "operator": "+",
+                  "reducer": "sum",
+                  "right": "statefulset"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "include": [
+                    "deployment"
+                  ],
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "deployment": true,
+                  "statefulset": true
+                },
+                "indexByName": {
+                  "Service": 1,
+                  "Time": 2,
+                  "Value": 5,
+                  "deployment": 3,
+                  "resource_type": 0,
+                  "statefulset": 4
+                },
+                "renameByName": {
+                  "Value": "Replicas",
+                  "resource_type": "Type"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 14
+          },
+          "id": 29,
+          "panels": [],
+          "title": "2. Nodes",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Memory"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "bytes"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 90
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Node"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 316
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 64
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 7,
+            "x": 0,
+            "y": 15
+          },
+          "id": 23,
+          "options": {
+            "frameIndex": 0,
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (node) (machine_cpu_cores{node=~\"$node_names\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "B"
+            },
+            {
+              "expr": "label_replace((sum by (instance) (node_memory_MemTotal_bytes{instance=~\"$node_names\"})), \"node\", \"$1\", \"instance\", \"(.*)\")",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Nodes Capacity",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Value #A": true,
+                  "instance": true
+                },
+                "indexByName": {
+                  "Time": 3,
+                  "Value #A": 5,
+                  "Value #B": 6,
+                  "Value #C": 8,
+                  "effect": 4,
+                  "instance": 7,
+                  "key": 1,
+                  "node": 0,
+                  "value": 2
+                },
+                "renameByName": {
+                  "Value #B": "CPU",
+                  "Value #C": "Memory",
+                  "node": "Node"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "node"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 309
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Node"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 328
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Key"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 156
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 72
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Effect"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 7,
+            "y": 15
+          },
+          "id": 22,
+          "options": {
+            "frameIndex": 0,
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "Node"
+              }
+            ]
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (node, key, value, effect) (kube_node_spec_taint{node=~\"$node_names\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Node Taints",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Value": true,
+                  "Value #A": true,
+                  "instance": true
+                },
+                "indexByName": {
+                  "Time": 3,
+                  "Value #A": 5,
+                  "Value #B": 6,
+                  "Value #C": 8,
+                  "effect": 4,
+                  "instance": 7,
+                  "key": 1,
+                  "node": 0,
+                  "value": 2
+                },
+                "renameByName": {
+                  "Value #B": "CPU",
+                  "Value #C": "Memory",
+                  "effect": "Effect",
+                  "key": "Key",
+                  "node": "Node",
+                  "value": "Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "collapsed": true,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 23
+          },
+          "id": 31,
+          "panels": [
+            {
+              "datasource": null,
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "continuous-blues"
+                  },
+                  "custom": {
+                    "align": "left",
+                    "filterable": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "percentage",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  },
+                  "unit": "bytes"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Active Processor Count"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit"
+                      },
+                      {
+                        "id": "custom.width",
+                        "value": 163
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Pod"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 401
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Xms"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 83
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Xmx"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 82
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Pod Memory Request"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 153
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Pod Memory Limit"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 135
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 14,
+                "w": 15,
+                "x": 0,
+                "y": 3
+              },
+              "id": 2,
+              "options": {
+                "frameIndex": 1,
+                "showHeader": true,
+                "sortBy": [
+                  {
+                    "desc": false,
+                    "displayName": "Pod Memory Limit"
+                  }
+                ]
+              },
+              "pluginVersion": "7.4.1",
+              "targets": [
+                {
+                  "expr": "sum(jvm_memory_committed_bytes{namespace=\"$ns\", area=\"heap\"}) by (pod, service)",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "jvm_commited A"
+                },
+                {
+                  "expr": "sum(jvm_memory_max_bytes{namespace=\"$ns\", area=\"heap\"}) by (pod, service)",
+                  "format": "table",
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "queryType": "randomWalk",
+                  "refId": "jvm_max A"
+                },
+                {
+                  "expr": "sum(jvm_memory_bytes_max{area=\"heap\",namespace=\"$ns\",job!=\"kafka-cluster-zookeeper-client\",job!=\"kafka-cluster-zookeeper-nodes\", job!=\"kafka-cluster-kafka-brokers\",job!=\"kafka-cluster-kafka-bootstrap\"}) by (pod)",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "jvm_max B"
+                },
+                {
+                  "expr": "sum(jvm_memory_bytes_init{area=\"heap\",namespace=\"$ns\",job!=\"kafka-cluster-zookeeper-client\",job!=\"kafka-cluster-zookeeper-nodes\", job!=\"kafka-cluster-kafka-brokers\",job!=\"kafka-cluster-kafka-bootstrap\"}) by (pod)",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "jvm_init B"
+                },
+                {
+                  "expr": "sum(system_cpu_count{namespace=\"$ns\", service !=\"platform-gateway-public-api\", service !=\"platform-gateway-public-documentation\"}) by (pod)",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "cpu_count"
+                },
+                {
+                  "expr": "sum by (pod) (kube_pod_container_resource_requests{namespace=\"$ns\", resource=\"memory\", container!=\"istio-proxy\"})",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "memory_request"
+                },
+                {
+                  "expr": "sum by (pod) (kube_pod_container_resource_limits{namespace=\"$ns\", resource=\"memory\", container!=\"istio-proxy\"})",
+                  "format": "table",
+                  "hide": false,
+                  "instant": true,
+                  "interval": "",
+                  "legendFormat": "",
+                  "refId": "memory_limit"
+                }
+              ],
+              "title": "Java Opts Resources",
+              "transformations": [
+                {
+                  "id": "seriesToColumns",
+                  "options": {
+                    "byField": "pod"
+                  }
+                },
+                {
+                  "id": "calculateField",
+                  "options": {
+                    "alias": "xms",
+                    "mode": "reduceRow",
+                    "reduce": {
+                      "include": [
+                        "Value #jvm_commited A",
+                        "Value #jvm_init B"
+                      ],
+                      "reducer": "sum"
+                    },
+                    "replaceFields": false
+                  }
+                },
+                {
+                  "id": "calculateField",
+                  "options": {
+                    "alias": "xmx",
+                    "mode": "reduceRow",
+                    "reduce": {
+                      "include": [
+                        "Value #jvm_max A",
+                        "Value #jvm_max B"
+                      ],
+                      "reducer": "sum"
+                    }
+                  }
+                },
+                {
+                  "id": "filterByValue",
+                  "options": {
+                    "filters": [
+                      {
+                        "config": {
+                          "id": "greater",
+                          "options": {
+                            "value": 0
+                          }
+                        },
+                        "fieldName": "xms"
+                      }
+                    ],
+                    "match": "any",
+                    "type": "include"
+                  }
+                },
+                {
+                  "id": "organize",
+                  "options": {
+                    "excludeByName": {
+                      "Time 1": true,
+                      "Time 2": true,
+                      "Time 3": true,
+                      "Time 4": true,
+                      "Time 5": true,
+                      "Time 6": true,
+                      "Time 7": true,
+                      "Value #jvm_commited A": true,
+                      "Value #jvm_init B": true,
+                      "Value #jvm_max A": true,
+                      "Value #jvm_max B": true,
+                      "service 1": true,
+                      "service 2": true
+                    },
+                    "indexByName": {
+                      "Time 1": 6,
+                      "Time 2": 8,
+                      "Time 3": 10,
+                      "Time 4": 12,
+                      "Time 5": 14,
+                      "Time 6": 15,
+                      "Time 7": 16,
+                      "Value #cpu_count": 5,
+                      "Value #jvm_commited A": 7,
+                      "Value #jvm_init B": 13,
+                      "Value #jvm_max A": 9,
+                      "Value #jvm_max B": 11,
+                      "Value #memory_limit": 4,
+                      "Value #memory_request": 3,
+                      "pod": 0,
+                      "xms": 1,
+                      "xmx": 2
+                    },
+                    "renameByName": {
+                      "Value #cpu_count": "Active Processor Count",
+                      "Value #jvm_commited A": "",
+                      "Value #memory_limit": "Pod Memory Limit",
+                      "Value #memory_request": "Pod Memory Request",
+                      "pod": "Pod",
+                      "xms": "Xms",
+                      "xmx": "Xmx"
+                    }
+                  }
+                },
+                {
+                  "id": "calculateField",
+                  "options": {
+                    "alias": "diff",
+                    "binary": {
+                      "left": "xmx",
+                      "operator": "-",
+                      "reducer": "sum",
+                      "right": "xms"
+                    },
+                    "mode": "binary",
+                    "reduce": {
+                      "reducer": "sum"
+                    }
+                  }
+                }
+              ],
+              "type": "table"
+            }
+          ],
+          "title": "3. Java",
+          "type": "row"
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 24
+          },
+          "id": 33,
+          "panels": [],
+          "title": "4. Database",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 0,
+            "y": 25
+          },
+          "id": 8,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "kube_persistentvolumeclaim_resource_requests_storage_bytes{namespace=\"$ns\", persistentvolumeclaim=~\"operational-instance1-.*\"}",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Storage Size",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sum (hikaricp_connections_max{namespace=\"with-geo\"})"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Client Connection Pools"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value #A"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Server Max Connections"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 4,
+            "y": 25
+          },
+          "id": 6,
+          "options": {
+            "displayMode": "lcd",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": false,
+            "text": {}
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (cluster) (pg_settings_max_connections{namespace=\"$ns\", cluster=\"operational\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "sum (hikaricp_connections_max{namespace=\"$ns\"})",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Connections",
+          "transformations": [
+            {
+              "id": "seriesToColumns",
+              "options": {}
+            }
+          ],
+          "type": "bargauge"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "bytes"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Container Memory Request"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "from": "",
+                        "id": 1,
+                        "text": "N/A",
+                        "to": "",
+                        "type": 1,
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Container Memory Limit"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "from": "",
+                        "id": 1,
+                        "text": "N/A",
+                        "to": "",
+                        "type": 1,
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 15,
+            "x": 9,
+            "y": 25
+          },
+          "id": 10,
+          "options": {
+            "showHeader": true
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (pod) (\n  kube_pod_container_resource_requests{namespace=\"$ns\", resource=\"memory\", pod=~\"operational-instance.*\"}\n) OR absent(kube_pod_container_resource_requests{namespace=\"$ns\", resource=\"memory\", pod=~\"operational-instance.*\"})\n",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "sum by (pod) (\n  kube_pod_container_resource_limits{namespace=\"$ns\", resource=\"memory\", pod=~\"operational-instance.*\"}\n) OR absent(kube_pod_container_resource_limits{namespace=\"$ns\", resource=\"memory\", pod=~\"operational-instance.*\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "B"
+            },
+            {
+              "expr": "sum by (pod) (pg_settings_shared_buffers_bytes{cluster=\"operational\", namespace=\"$ns\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
+            },
+            {
+              "expr": "sum by (pod) (pg_settings_effective_cache_size_bytes{cluster=\"operational\", namespace=\"$ns\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "D"
+            },
+            {
+              "expr": "sum by (pod) (pg_settings_max_wal_size_bytes{cluster=\"operational\", namespace=\"$ns\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "E"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Essential Database Config",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "namespace": true,
+                  "pod": true,
+                  "resource": true
+                },
+                "indexByName": {
+                  "Time": 5,
+                  "Value #A": 0,
+                  "Value #B": 1,
+                  "Value #C": 2,
+                  "Value #D": 3,
+                  "Value #E": 4,
+                  "namespace": 6,
+                  "pod": 8,
+                  "resource": 7
+                },
+                "renameByName": {
+                  "Value #A": "Container Memory Request",
+                  "Value #B": "Container Memory Limit",
+                  "Value #C": "Shared Buffers",
+                  "Value #D": "Effective Cache Size",
+                  "Value #E": "Max WAL Size"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 9,
+            "y": 28
+          },
+          "id": 37,
+          "options": {
+            "showHeader": true
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (key, operator) (kube_pod_tolerations{namespace=\"$ns\", pod=~\"operational-instance.*\", key!~\"node.kubernetes.io/.*\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Operational Instance Pod Tolerations",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Value": true
+                },
+                "indexByName": {
+                  "Time": 2,
+                  "Value": 3,
+                  "key": 0,
+                  "operator": 1
+                },
+                "renameByName": {
+                  "key": "Key",
+                  "operator": "Operator"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Pod"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 433
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Max connection pool size"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 175
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 9,
+            "x": 0,
+            "y": 30
+          },
+          "id": 4,
+          "options": {
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (pod) (hikaricp_connections_max{namespace=\"$ns\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Connection pools by clients",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Max connection pool size",
+                  "pod": "Pod"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 38
+          },
+          "id": 35,
+          "panels": [],
+          "title": "5. Istio",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU Request"
+                },
+                "properties": [
+                  {
+                    "id": "unit"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 97
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU Limit"
+                },
+                "properties": [
+                  {
+                    "id": "unit"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 83
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Pod"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 407
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Memory Request"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Memory Limit"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 102
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 39
+          },
+          "id": 12,
+          "options": {
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (pod) (kube_pod_container_resource_requests{namespace=\"$ns\", container=\"istio-proxy\", resource=\"memory\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "sum by (pod) (kube_pod_container_resource_requests{namespace=\"$ns\", container=\"istio-proxy\", resource=\"cpu\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "B"
+            },
+            {
+              "expr": "sum by (pod) (kube_pod_container_resource_limits{namespace=\"$ns\", container=\"istio-proxy\", resource=\"memory\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
+            },
+            {
+              "expr": "sum by (pod) (kube_pod_container_resource_limits{namespace=\"$ns\", container=\"istio-proxy\", resource=\"cpu\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "D"
+            }
+          ],
+          "title": "Istio Container Resorces",
+          "transformations": [
+            {
+              "id": "seriesToColumns",
+              "options": {
+                "byField": "pod"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time 1": true,
+                  "Time 2": true,
+                  "Time 3": true,
+                  "Time 4": true,
+                  "Value #A": false
+                },
+                "indexByName": {
+                  "Time 1": 5,
+                  "Time 2": 6,
+                  "Time 3": 7,
+                  "Time 4": 8,
+                  "Value #A": 1,
+                  "Value #B": 3,
+                  "Value #C": 2,
+                  "Value #D": 4,
+                  "pod": 0
+                },
+                "renameByName": {
+                  "Value #A": "Memory Request",
+                  "Value #B": "CPU Request",
+                  "Value #C": "Memory Limit",
+                  "Value #D": "CPU Limit",
+                  "pod": "Pod"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 46
+          },
+          "id": 25,
+          "panels": [],
+          "title": "6. Kafka",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 0,
+            "y": 47
+          },
+          "id": 16,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "count(kafka_server_replicamanager_leadercount{namespace=\"$ns\", service=\"kafka-cluster-kafka-brokers\"})",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Brokers Online",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "partition"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 69
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "topic"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 259
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Partition"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 82
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Replicas"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 7,
+            "x": 5,
+            "y": 47
+          },
+          "id": 14,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "Topic"
+              }
+            ]
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (topic) (kafka_topic_partitions{namespace=\"$ns\", topic=~\"bpm-history.*\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "BPM History Events Topics",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "Value": 3,
+                  "partition": 2,
+                  "topic": 1
+                },
+                "renameByName": {
+                  "Value": "Partitions",
+                  "partition": "Partition",
+                  "topic": "Topic"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 12,
+            "y": 47
+          },
+          "id": 38,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (deployment) (kube_deployment_spec_replicas{namespace=\"$ns\", deployment=\"process-history-service-persistence-deployment\"})",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Process History Service Persistence Replicas",
+          "transformations": [],
+          "type": "stat"
+        }
+      ],
+      "schemaVersion": 27,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": [
+          {
+            "allValue": null,
+            "datasource": null,
+            "definition": "label_values(kube_deployment_spec_replicas{deployment=\"bpms\"}, namespace)",
+            "description": null,
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": "Registry",
+            "multi": false,
+            "name": "ns",
+            "options": [
+            ],
+            "query": {
+              "query": "label_values(kube_deployment_spec_replicas{deployment=\"bpms\"}, namespace)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 0,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": [
+                "All"
+              ],
+              "value": [
+                "$__all"
+              ]
+            },
+            "datasource": null,
+            "definition": "label_values(kube_pod_info{namespace=\"$ns\"}, node)",
+            "description": null,
+            "error": null,
+            "hide": 2,
+            "includeAll": true,
+            "label": null,
+            "multi": true,
+            "name": "node_names",
+            "options": [
+              {
+                "selected": true,
+                "text": "All",
+                "value": "$__all"
+              }
+            ],
+            "query": {
+              "query": "label_values(kube_pod_info{namespace=\"$ns\"}, node)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 0,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Registry Configuration Audit",
+      "uid": "cWc1XZtHk",
+      "version": 98
+    }
