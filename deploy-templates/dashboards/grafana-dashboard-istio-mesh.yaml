@@ -1782,6 +1782,6 @@ data:
       },
       "timezone": "browser",
       "title": "Istio Mesh Dashboard",
-      "uid": "G8wLrJIZk",
+      "uid": "istio-mesh-dashboard",
       "version": 1
     }

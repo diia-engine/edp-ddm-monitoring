@@ -2069,6 +2069,6 @@ data:
       "timepicker": {},
       "timezone": "",
       "title": "Registry Configuration Audit",
-      "uid": "cWc1XZtHk",
-      "version": 98
+      "uid": "registry-configuration-audit",
+      "version": 1
     }

@@ -4,10 +4,6 @@ helmDefaults:
 
 missingFileHandler: Warn
 
-repositories:
-  - name: bitnami
-    url: https://charts.bitnami.com/bitnami
-
 releases:
   - name: grafana
     namespace: grafana-monitoring
@@ -23,6 +19,9 @@ releases:
       - events: [ "presync" ]
         command: "oc"
         args: [ "apply", "-f", "dashboards/", "-n", "{{`{{ .Release.Namespace }}`}}" ]
+      - events: ["presync"]
+        command: "oc"
+        args: ["delete", "deployment", "grafana", "-n", "{{`{{ .Release.Namespace }}`}}", "--ignore-not-found"]
       - events: [ "presync" ]
         command: "oc"
         args: [ "adm", "policy", "add-scc-to-user", "anyuid", "-z", "grafana", "-n", "{{`{{ .Release.Namespace }}`}}" ]

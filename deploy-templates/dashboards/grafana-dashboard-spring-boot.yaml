@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-spring-boot
 data:
   spring-boot.json: |-
    {
@@ -3659,11 +3662,6 @@ data:
     },
     "timezone": "",
     "title": "Spring Boot",
-    "uid": "I_U453aMk",
-    "version": 11
+    "uid": "spring-boot",
+    "version": 1
    }
-kind: ConfigMap
-metadata:
-  annotations:
-  creationTimestamp: null
-  name: grafana-dashboard-spring-boot

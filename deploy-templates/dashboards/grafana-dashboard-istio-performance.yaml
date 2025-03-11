@@ -1372,6 +1372,6 @@ data:
       },
       "timezone": "",
       "title": "Istio Performance Dashboard",
-      "uid": "vu8e0VWZk",
-      "version": 22
+      "uid": "istio-performance-dashboard",
+      "version": 1
     }

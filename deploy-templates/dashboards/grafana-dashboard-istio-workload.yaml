@@ -2709,6 +2709,6 @@ data:
       },
       "timezone": "",
       "title": "Istio Workload Dashboard",
-      "uid": "UbsSZTDik",
+      "uid": "istio-workload-dashboard",
       "version": 1
     }

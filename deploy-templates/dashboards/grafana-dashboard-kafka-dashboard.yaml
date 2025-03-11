@@ -2475,6 +2475,6 @@ data:
       "timepicker": {},
       "timezone": "",
       "title": "Kafka Dashboard",
-      "uid": "I1iNb5dNz",
-      "version": 36
+      "uid": "kafka-dashboard",
+      "version": 1
     }

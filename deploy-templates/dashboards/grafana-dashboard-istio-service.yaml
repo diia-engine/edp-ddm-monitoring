@@ -3071,6 +3071,6 @@ data:
       },
       "timezone": "",
       "title": "Istio Service Dashboard",
-      "uid": "LJ_uJAvmk",
+      "uid": "istio-service-dashboard",
       "version": 1
     }

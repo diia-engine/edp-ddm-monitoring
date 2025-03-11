@@ -141,103 +141,153 @@ dashboardsProvider:
   configMapName:
 
 ## Create dashboards from a custom configMap that contains the file.
-## They will be mounted by the default dashboard provider if it is enabled
+## They will be mounted by the specifed dashboard provider (group) if it is enabled
 ## Use an array with the configMap names.
 ## Example:
 ## dashboardsConfigMaps:
-##   - configMapName: mydashboard
-##     fileName: mydashboard.json
-##   - configMapName: myotherdashboard
-##     fileName: myotherdashboard.json
+##  - group: providerName
+##    name: "Folder Name"
+##    dashboards:
+##      - configMapName: mydashboard
+##        fileName: mydashboard.json
+##  - group: anotherProviderName
+##    name: "Another Folder Name"
+##    dashboards:
+##      - configMapName: mydashboard2
+##        fileName: mydashboard2.json
+##      - configMapName: anothermydashboard
+##        fileName: anothermydashboard.json
 ##
 dashboardsConfigMaps:
-  - configMapName: grafana-dashboard-cluster-total
-    fileName: cluster-total.json
-  - configMapName: grafana-dashboard-etcd
-    fileName: etcd.json
-  - configMapName: grafana-dashboard-k8s-resources-cluster
-    fileName: k8s-resources-cluster.json
-  - configMapName: grafana-dashboard-k8s-resources-namespace
-    fileName: k8s-resources-namespace.json
-  - configMapName: grafana-dashboard-k8s-resources-node
-    fileName: k8s-resources-node.json
-  - configMapName: grafana-dashboard-k8s-resources-pod
-    fileName: k8s-resources-pod.json
-  - configMapName: grafana-dashboard-k8s-resources-workload
-    fileName: k8s-resources-workload.json
-  - configMapName: grafana-dashboard-k8s-resources-workloads-namespace
-    fileName: k8s-resources-workloads-namespace.json
-  - configMapName: grafana-dashboard-node-cluster-rsrc-use
-    fileName: node-cluster-rsrc-use.json
-  - configMapName: grafana-dashboard-node-rsrc-use
-    fileName: node-rsrc-use.json
-  - configMapName: grafana-dashboard-prometheus
-    fileName: prometheus.json
-  - configMapName: grafana-dashboard-jmx
-    fileName: jmx.json
-  - configMapName: grafana-dashboard-postgresql-db
-    fileName: postgresql-db.json
-  - configMapName: grafana-dashboard-postgresql-queries
-    fileName: postgresql_queries.json
-  - configMapName: grafana-dashboard-redash
-    fileName: redash.json
-  - configMapName: grafana-dashboard-spring-boot
-    fileName: spring-boot.json
-  - configMapName: grafana-dashboard-spring-boot-observability
-    fileName: spring-boot-observability.json
-  - configMapName: grafana-dashboard-strimzi-kafka
-    fileName: strimzi-kafka.json
-  - configMapName: grafana-dashboard-volume-load
-    fileName: load-volume.json
-  - configMapName: grafana-dashboard-ceph
-    fileName: ceph.json
-  - configMapName: grafana-dashboard-kafka-data
-    fileName: kafka-data.json
-  - configMapName: grafana-dashboard-keycloak-metrics
-    fileName: keycloak-metrics.json
-  - configMapName: grafana-dashboard-keycloak-x-microprofile-metrics
-    fileName: keycloak-x-microprofile-metrics.json
-  - configMapName: grafana-dashboard-crunchy-pgbackrest
-    fileName: pgbackrest.json
-  - configMapName: grafana-dashboard-crunchy-pod-details
-    fileName: pod_details.json
-  - configMapName: grafana-dashboard-crunchy-postgresql-details
-    fileName: postgresql_details.json
-  - configMapName: grafana-dashboard-crunchy-postgresql-overview
-    fileName: postgresql_overview.json
-  - configMapName: grafana-dashboard-crunchy-postgresql-service-health
-    fileName: postgresql_service_health.json
-  - configMapName: grafana-dashboard-crunchy-query-statistics
-    fileName: query_statistics.json
-  - configMapName: grafana-dashboard-redis
-    fileName: redis.json
-  - configMapName: grafana-dashboard-camunda-metrics
-    fileName: camunda-metrics.json
-  - configMapName: grafana-dashboard-kong-public-api
-    fileName: grafana-dashboard-kong-public-api.json
-  - configMapName: grafana-dashboard-jvm
-    fileName: grafana-dashboard-jvm.json
-  - configMapName: grafana-dashboard-istio-workload
-    fileName: grafana-dashboard-istio-workload.json
-  - configMapName: grafana-dashboard-istio-service
-    fileName: grafana-dashboard-istio-service.json
-  - configMapName: grafana-dashboard-istio-performance
-    fileName: grafana-dashboard-istio-performance.json
-  - configMapName: grafana-dashboard-istio-mesh
-    fileName: grafana-dashboard-istio-mesh.json
-  - configMapName: grafana-dashboard-istio-control-plane
-    fileName: grafana-dashboard-istio-control-plane.json
-  - configMapName: grafana-dashboard-registry-monitoring
-    fileName: grafana-dashboard-registry-monitoring.json
-  - configMapName: grafana-dashboard-kafka-dashboard
-    fileName: grafana-dashboard-kafka-dashboard.json
-  - configMapName: grafana-dashboard-kafka-topics
-    fileName: grafana-dashboard-kafka-topics.json
-  - configMapName: grafana-dashboard-reg-config-audit
-    fileName: reg-config-audit.json
+  - group: app-monitoring
+    name: "Application Monitoring"
+    dashboards:
+      - configMapName: grafana-dashboard-registry-monitoring
+        fileName: grafana-dashboard-registry-monitoring.json
+      - configMapName: grafana-dashboard-camunda-metrics
+        fileName: camunda-metrics.json
+      - configMapName: grafana-dashboard-kong-public-api
+        fileName: grafana-dashboard-kong-public-api.json
+      - configMapName: grafana-dashboard-reg-config-audit
+        fileName: reg-config-audit.json
+  - group: ceph
+    name: "Ceph"
+    dashboards:
+      - configMapName: grafana-dashboard-ceph-s3-bucket-metrics
+        fileName: grafana-dashboard-ceph-s3-bucket-metrics.json
+      - configMapName: grafana-dashboard-ceph-scrubbing
+        fileName: grafana-dashboard-ceph-scrubbing.json
+      - configMapName: grafana-dashboard-ceph
+        fileName: ceph.json
+  - group: istio
+    name: "Istio"
+    dashboards:
+      - configMapName: grafana-dashboard-istio-workload
+        fileName: grafana-dashboard-istio-workload.json
+      - configMapName: grafana-dashboard-istio-service
+        fileName: grafana-dashboard-istio-service.json
+      - configMapName: grafana-dashboard-istio-performance
+        fileName: grafana-dashboard-istio-performance.json
+      - configMapName: grafana-dashboard-istio-mesh
+        fileName: grafana-dashboard-istio-mesh.json
+      - configMapName: grafana-dashboard-istio-control-plane
+        fileName: grafana-dashboard-istio-control-plane.json
+  - group: jvm
+    name: "JVM Monitoring"
+    dashboards:
+      - configMapName: grafana-dashboard-spring-boot
+        fileName: spring-boot.json
+      - configMapName: grafana-dashboard-jvm
+        fileName: grafana-dashboard-jvm.json
+  - group: kafka
+    name: "Kafka"
+    dashboards:
+      - configMapName: grafana-dashboard-strimzi-kafka
+        fileName: strimzi-kafka.json
+      - configMapName: grafana-dashboard-kafka-dashboard
+        fileName: grafana-dashboard-kafka-dashboard.json
+      - configMapName: grafana-dashboard-kafka-topics
+        fileName: grafana-dashboard-kafka-topics.json
+  - group: keycloak
+    name: "Keycloak"
+    dashboards:
+      - configMapName: grafana-dashboard-keycloak-metrics
+        fileName: keycloak-metrics.json
+      - configMapName: grafana-dashboard-keycloak-x-microprofile-metrics
+        fileName: keycloak-x-microprofile-metrics.json
+  - group: kubernetes
+    name: "Kubernetes"
+    dashboards:
+      - configMapName: grafana-dashboard-cluster-total
+        fileName: cluster-total.json
+      - configMapName: grafana-dashboard-etcd
+        fileName: etcd.json
+      - configMapName: grafana-dashboard-k8s-resources-cluster
+        fileName: k8s-resources-cluster.json
+      - configMapName: grafana-dashboard-k8s-resources-namespace
+        fileName: k8s-resources-namespace.json
+      - configMapName: grafana-dashboard-k8s-resources-node
+        fileName: k8s-resources-node.json
+      - configMapName: grafana-dashboard-k8s-resources-pod
+        fileName: k8s-resources-pod.json
+      - configMapName: grafana-dashboard-k8s-resources-workload
+        fileName: k8s-resources-workload.json
+      - configMapName: grafana-dashboard-k8s-resources-workloads-namespace
+        fileName: k8s-resources-workloads-namespace.json
+      - configMapName: grafana-dashboard-volume-load
+        fileName: load-volume.json
+      - configMapName: grafana-dashboard-experimental-dashboard
+        fileName: grafana-dashboard-experimental-dashboard.json
+  - group: postgresql
+    name: "Postgresql"
+    dashboards:
+      - configMapName: grafana-dashboard-crunchy-postgresql-details
+        fileName: postgresql_details.json
+      - configMapName: grafana-dashboard-crunchy-postgresql-overview
+        fileName: postgresql_overview.json
+      - configMapName: grafana-dashboard-crunchy-postgresql-service-health
+        fileName: postgresql_service_health.json
+      - configMapName: grafana-dashboard-crunchy-pgbackrest
+        fileName: pgbackrest.json
+      - configMapName: grafana-dashboard-crunchy-pod-details
+        fileName: pod_details.json
+      - configMapName: grafana-dashboard-crunchy-query-statistics
+        fileName: query_statistics.json
+  - group: prometheus
+    name: "Prometheus"
+    dashboards:
+      - configMapName: grafana-dashboard-prometheus
+        fileName: prometheus.json
+  - group: redash
+    name: "Redash"
+    dashboards:
+      - configMapName: grafana-dashboard-redash
+        fileName: redash.json
+  - group: redis
+    name: "Redis"
+    dashboards:
+      - configMapName: grafana-dashboard-redis
+        fileName: redis.json
+  - group: vm
+    name: "Virtual Machine"
+    dashboards:
+      - configMapName: grafana-dashboard-node-exporter-basic-info
+        fileName: grafana-dashboard-node-exporter-basic-info.json
+      - configMapName: grafana-dashboard-node-exporter-memory
+        fileName: grafana-dashboard-node-exporter-memory.json
+      - configMapName: grafana-dashboard-node-exporter-system
+        fileName: grafana-dashboard-node-exporter-system.json
+      - configMapName: grafana-dashboard-node-exporter-storage
+        fileName: grafana-dashboard-node-exporter-storage.json
+      - configMapName: grafana-dashboard-node-exporter-network
+        fileName: grafana-dashboard-node-exporter-network.json
+      - configMapName: grafana-dashboard-node-exporter-misc
+        fileName: grafana-dashboard-node-exporter-misc.json
+      - configMapName: grafana-dashboard-node-cluster-rsrc-use
+        fileName: node-cluster-rsrc-use.json
+      - configMapName: grafana-dashboard-node-rsrc-use
+        fileName: node-rsrc-use.json
 
-##  - configMapName: grafana-dashboard-cluster-total
-##    fileName: grafana-dashboard-cluster-total.json
 ## Create datasources from a custom secret
 ## The secret must contain the files
 ##

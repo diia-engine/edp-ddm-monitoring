@@ -1041,6 +1041,6 @@ data:
             ]
         },
         "timezone": "utc",
-        "title": "Node Exporter / USE Method / Cluster",
+        "title": "Node Exporter / USE Method: Cluster Wide",
         "version": 0
     }

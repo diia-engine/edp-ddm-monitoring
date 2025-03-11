@@ -1,5 +1,5 @@
-kind: ConfigMap
 apiVersion: v1
+kind: ConfigMap
 metadata:
   name: grafana-dashboard-etcd
 data:
@@ -1349,5 +1349,5 @@ data:
         },
         "timezone": "browser",
         "title": "etcd",
-        "version": 215
+        "version": 1
     }

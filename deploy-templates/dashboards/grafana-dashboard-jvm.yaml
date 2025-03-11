@@ -2776,5 +2776,5 @@ data:
      "timezone": "",
      "title": "JVM Metrics For Third-Party Java Apps",
      "uid": "chanjarster-jvm-dashboard",
-     "version": 3
+     "version": 1
     }

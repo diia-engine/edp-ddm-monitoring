@@ -1067,6 +1067,6 @@ data:
             ]
         },
         "timezone": "utc",
-        "title": "Node Exporter / USE Method / Node",
+        "title": "Node Exporter / USE Method: Per Node",
         "version": 0
     }

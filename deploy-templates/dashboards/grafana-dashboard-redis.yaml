@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-redis
 data:
   redis.json: |-
     {
@@ -1322,9 +1325,6 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Redis",
-      "version": 8
+      "title": "Redis Monitoring",
+      "version": 1
     }
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-redis

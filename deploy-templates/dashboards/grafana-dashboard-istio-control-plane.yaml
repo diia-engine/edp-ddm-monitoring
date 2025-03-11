@@ -1771,6 +1771,6 @@ data:
       },
       "timezone": "browser",
       "title": "Istio Control Plane Dashboard",
-      "uid": "3--MLVZZk",
-      "version": 11
+      "uid": "istio-control-plane-dashboard",
+      "version": 1
     }

@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-crunchy-postgresql-details
 data:
   postgresql_details.json: |-
    {
@@ -2145,11 +2148,7 @@ data:
        ]
      },
      "timezone": "browser",
-     "title": "PostgreSQLDetails",
-     "uid": "fMip0cuMk",
+     "title": "PostgreSQL Details",
+     "uid": "postgresqldetails",
      "version": 1
    }
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: grafana-dashboard-crunchy-postgresql-details

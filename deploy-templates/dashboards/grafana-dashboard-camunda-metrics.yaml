@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-camunda-metrics
 data:
   camunda-metrics.json: |-
     {
@@ -1812,9 +1815,6 @@ data:
       "timepicker": {},
       "timezone": "",
       "title": "Camunda Metrics Dashboard",
-      "uid": "YpL9Um9Mk",
-      "version": 15
+      "uid": "camunda-metrics-dasboard",
+      "version": 1
     }
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-camunda-metrics

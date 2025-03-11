@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-keycloak-metrics
 data:
   keycloak-metrics.json: |-
     {
@@ -1235,6 +1238,3 @@ data:
       "timezone": "",
       "title": "Keycloak Metrics2"
     }
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-keycloak-metrics

@@ -1,4 +1,7 @@
+kind: ConfigMap
 apiVersion: v1
+metadata:
+  name: grafana-dashboard-registry-monitoring
 data:
   grafana-dashboard-registry-monitoring.json: |-
     {
@@ -20,12 +23,11 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": null,
-      "iteration": 1729604162307,
+      "id": 43,
+      "iteration": 1742573780055,
       "links": [],
       "panels": [
         {
-          "collapsed": false,
           "datasource": null,
           "gridPos": {
             "h": 1,
@@ -33,8 +35,7 @@ data:
             "x": 0,
             "y": 0
           },
-          "id": 74,
-          "panels": [],
+          "id": 80,
           "title": "Health Metrics",
           "type": "row"
         },
@@ -216,7 +217,32 @@ data:
               },
               "unit": "reqps"
             },
-            "overrides": []
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "2xx"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "graph": true,
+                      "legend": false,
+                      "tooltip": false
+                    }
+                  }
+                ]
+              }
+            ]
           },
           "gridPos": {
             "h": 8,
@@ -558,591 +584,7 @@ data:
             "x": 0,
             "y": 9
           },
-          "id": 80,
-          "panels": [],
-          "title": "Keycloak Metrics",
-          "type": "row"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "reqps"
-            },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "200"
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "graph": true,
-                      "legend": false,
-                      "tooltip": false
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 10
-          },
-          "id": 81,
-          "interval": "1m",
-          "options": {
-            "graph": {},
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltipOptions": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "7.4.1",
-          "targets": [
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal.*\",code=~\"2.*\"}[$__rate_interval]))",
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "A"
-            },
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal.*\",code=~\"3.*\"}[$__rate_interval]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "B"
-            },
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal.*\",code=~\"4.*\"}[$__rate_interval]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "C"
-            },
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal.*\",code=~\"5.*\"}[$__rate_interval]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "D"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "All Requests by Response Status [officer-portal]",
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 10
-          },
-          "id": 82,
-          "interval": "1m",
-          "options": {
-            "graph": {},
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltipOptions": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "7.4.1",
-          "targets": [
-            {
-              "expr": "sum by (resource) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal.*\"}[$__rate_interval]))",
-              "interval": "",
-              "legendFormat": "{{resource}}",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Throughput by Resource [officer-portal]",
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "reqps"
-            },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "200"
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "graph": true,
-                      "legend": false,
-                      "tooltip": false
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 18
-          },
-          "id": 83,
-          "interval": "1m",
-          "options": {
-            "graph": {},
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltipOptions": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "7.4.1",
-          "targets": [
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal/protocol/openid-connect\",code=~\"2.*\"}[$__rate_interval]))",
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "A"
-            },
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal/protocol/openid-connect\",code=~\"3.*\"}[$__rate_interval]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "B"
-            },
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal/protocol/openid-connect\",code=~\"4.*\"}[$__rate_interval]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "C"
-            },
-            {
-              "expr": "sum by (code) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal/protocol/openid-connect\",code=~\"5.*\"}[$__rate_interval]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{code}}",
-              "refId": "D"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Auth Request by Response Status [officer-portal]",
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 18
-          },
-          "id": 84,
-          "interval": "1m",
-          "options": {
-            "graph": {},
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltipOptions": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "7.4.1",
-          "targets": [
-            {
-              "expr": "sum by (resource) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal/protocol/openid-connect\"}[$__rate_interval]))",
-              "interval": "",
-              "legendFormat": "{{resource}}",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Auth Request Throughput [officer-portal]",
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "always",
-                "spanNulls": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 26
-          },
-          "id": 85,
-          "interval": "1m",
-          "options": {
-            "graph": {},
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "right"
-            },
-            "tooltipOptions": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "7.4.1",
-          "targets": [
-            {
-              "exemplar": false,
-              "expr": "histogram_quantile(0.95, sum(irate(keycloak_request_duration_bucket{resource=~\".*${namespace}-officer-portal.*\"}[$__rate_interval])) by (resource,le))",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{resource}}",
-              "refId": "A"
-            }
-          ],
-          "title": "P95 Response Time by Resource [officer-portal]",
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "reqps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 33
-          },
-          "id": 86,
-          "interval": "1m",
-          "options": {
-            "graph": {},
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltipOptions": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "7.4.1",
-          "targets": [
-            {
-              "expr": "sum by (pod) (irate(keycloak_request_duration_count{resource=~\".*${namespace}-officer-portal.*\"}[$__rate_interval]))",
-              "interval": "",
-              "legendFormat": "{{pod}}",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Throughput Distribution by Pod [officer-portal]",
-          "type": "timeseries"
-        },
-        {
-          "collapsed": false,
-          "datasource": null,
-          "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 40
-          },
-          "id": 77,
+          "id": 74,
           "panels": [],
           "title": "Performance Metrics",
           "type": "row"
@@ -1177,7 +619,7 @@ data:
             "h": 4,
             "w": 3,
             "x": 0,
-            "y": 41
+            "y": 10
           },
           "id": 39,
           "interval": "1m",
@@ -1263,7 +705,7 @@ data:
             "h": 8,
             "w": 10,
             "x": 3,
-            "y": 41
+            "y": 10
           },
           "id": 10,
           "interval": "1m",
@@ -1344,7 +786,7 @@ data:
             "h": 8,
             "w": 11,
             "x": 13,
-            "y": 41
+            "y": 10
           },
           "id": 16,
           "interval": "1m",
@@ -1399,7 +841,7 @@ data:
                   }
                 ]
               },
-              "unit": "reqps"
+              "unit": "s"
             },
             "overrides": []
           },
@@ -1407,7 +849,7 @@ data:
             "h": 4,
             "w": 3,
             "x": 0,
-            "y": 45
+            "y": 14
           },
           "id": 78,
           "interval": "1m",
@@ -1432,7 +874,7 @@ data:
               "expr": "histogram_quantile(0.95, max(irate(http_server_requests_seconds_bucket{namespace=\"$namespace\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__rate_interval])) by (service,le))",
               "instant": false,
               "interval": "",
-              "legendFormat": "",
+              "legendFormat": "{{service}}",
               "refId": "A"
             }
           ],
@@ -1552,7 +994,7 @@ data:
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 49
+            "y": 18
           },
           "id": 8,
           "interval": null,
@@ -1637,9 +1079,9 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 26
           },
-          "id": 69,
+          "id": 77,
           "panels": [],
           "title": "Redis Storage Metrics",
           "type": "row"
@@ -1664,7 +1106,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 58
+            "y": 27
           },
           "id": 67,
           "interval": "5s",
@@ -1718,7 +1160,7 @@ data:
             "h": 6,
             "w": 3,
             "x": 3,
-            "y": 58
+            "y": 27
           },
           "id": 75,
           "interval": "5s",
@@ -1772,7 +1214,7 @@ data:
             "h": 6,
             "w": 9,
             "x": 6,
-            "y": 58
+            "y": 27
           },
           "hiddenSeries": false,
           "id": 65,
@@ -1880,7 +1322,7 @@ data:
             "h": 6,
             "w": 9,
             "x": 15,
-            "y": 58
+            "y": 27
           },
           "hiddenSeries": false,
           "id": 72,
@@ -1980,7 +1422,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 61
+            "y": 30
           },
           "id": 70,
           "interval": "5s",
@@ -2021,9 +1463,466 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 64
+            "y": 33
           },
-          "id": 63,
+          "id": 94,
+          "panels": [],
+          "title": "S3 Client Metrics",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "graph": false,
+                  "legend": false,
+                  "tooltip": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "always",
+                "spanNulls": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 14,
+            "w": 11,
+            "x": 0,
+            "y": 34
+          },
+          "id": 102,
+          "interval": "1m",
+          "options": {
+            "graph": {},
+            "legend": {
+              "calcs": [
+                "min",
+                "mean",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltipOptions": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (operation, bucket) (increase(aws_sdk_latency_clientexecutetime_seconds_sum{namespace=\"$namespace\",service=\"$service\"}[$__rate_interval])) / sum by (operation, bucket) (increase(aws_sdk_latency_clientexecutetime_seconds_count{namespace=\"$namespace\",service=\"$service\"}[$__rate_interval]))",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{bucket}} - {{operation}}",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "title": "Avg. Response Time by Method",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": -1,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "graph": false,
+                  "legend": false,
+                  "tooltip": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "reqps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 7,
+            "x": 11,
+            "y": 34
+          },
+          "id": 100,
+          "interval": "1m",
+          "options": {
+            "graph": {},
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltipOptions": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "sum by (bucket) (irate(aws_sdk_latency_clientexecutetime_seconds_count{namespace=\"$namespace\", service=\"$service\"}[$__rate_interval]))",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{bucket}}",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Throughput by Bucket",
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 18,
+            "y": 34
+          },
+          "id": 96,
+          "interval": "5s",
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum(aws_sdk_pool_leased{namespace=~\"$namespace\",  service=~\"$service\"})",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Connected Clients",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 18,
+            "y": 37
+          },
+          "id": 98,
+          "interval": "5s",
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum(aws_sdk_pool_pending{namespace=~\"$namespace\",  service=\"$service\"})",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Blocked Clients",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "method"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 132
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "uri"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 352
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Method"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 80
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "URI"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 351
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Status"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 105
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Exception"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 154
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Occurences"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 110
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 7,
+            "x": 11,
+            "y": 41
+          },
+          "id": 104,
+          "options": {
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "topk(10, round(sum by(operation, bucket) (increase(aws_sdk_exception_count{namespace=\"$namespace\", service=\"$service\"}[$__range])))) > 0",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "{{bucket}} - {{operation}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Bucket Method by Exception Count",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "Value": 5,
+                  "exception": 4,
+                  "method": 1,
+                  "status": 3,
+                  "uri": 2
+                },
+                "renameByName": {
+                  "Value": "Occurences",
+                  "exception": "Exception",
+                  "method": "Method",
+                  "status": "Status",
+                  "uri": "URI"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 48
+          },
+          "id": 69,
           "panels": [],
           "title": "Business Process Execution Metrics",
           "type": "row"
@@ -2061,7 +1960,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 0,
-            "y": 65
+            "y": 49
           },
           "id": 25,
           "options": {
@@ -2125,7 +2024,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 6,
-            "y": 65
+            "y": 49
           },
           "id": 61,
           "options": {
@@ -2181,7 +2080,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 12,
-            "y": 65
+            "y": 49
           },
           "id": 60,
           "options": {
@@ -2245,7 +2144,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 18,
-            "y": 65
+            "y": 49
           },
           "id": 59,
           "options": {
@@ -2296,7 +2195,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 0,
-            "y": 69
+            "y": 53
           },
           "id": 57,
           "interval": "30s",
@@ -2349,7 +2248,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 6,
-            "y": 69
+            "y": 53
           },
           "id": 55,
           "interval": null,
@@ -2402,7 +2301,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 12,
-            "y": 69
+            "y": 53
           },
           "id": 29,
           "options": {
@@ -2467,7 +2366,7 @@ data:
             "h": 4,
             "w": 6,
             "x": 18,
-            "y": 69
+            "y": 53
           },
           "id": 35,
           "options": {
@@ -2497,6 +2396,717 @@ data:
           ],
           "title": "Process Instances Removed [Historical]",
           "type": "stat"
+        },
+        {
+          "collapsed": false,
+          "datasource": null,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 57
+          },
+          "id": 63,
+          "panels": [],
+          "title": "Spring Boot Observability",
+          "type": "row"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": -1,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "graph": false,
+                  "legend": false,
+                  "tooltip": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "reqps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 58
+          },
+          "id": 82,
+          "interval": "1m",
+          "options": {
+            "graph": {},
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltipOptions": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "sum by (uri, method) (irate(http_server_requests_seconds_count{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__rate_interval]))",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{method}} {{uri}}",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Throughput by URI",
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "graph": false,
+                  "legend": false,
+                  "tooltip": false
+                },
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 58
+          },
+          "id": 84,
+          "interval": "1m",
+          "links": [],
+          "options": {
+            "graph": {},
+            "legend": {
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltipOptions": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "$$hashKey": "object:854",
+              "aggregation": "Last",
+              "decimals": 2,
+              "displayAliasType": "Warning / Critical",
+              "displayType": "Regular",
+              "displayValueWithAlias": "Never",
+              "exemplar": false,
+              "expr": "sum by (status) (increase(http_server_requests_seconds_count{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__rate_interval]))",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{status}}",
+              "refId": "A",
+              "units": "none",
+              "valueHandler": "Number Threshold"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Req by Response Status",
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "graph": false,
+                  "legend": false,
+                  "tooltip": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "always",
+                "spanNulls": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 12,
+            "x": 0,
+            "y": 67
+          },
+          "id": 86,
+          "interval": "1m",
+          "options": {
+            "graph": {},
+            "legend": {
+              "calcs": [
+                "min",
+                "mean",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltipOptions": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "histogram_quantile(0.95, sum(irate(http_server_requests_seconds_bucket{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__rate_interval])) by (uri,method,le))",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{method}} {{uri}}",
+              "refId": "A"
+            }
+          ],
+          "title": "P95 Response Time by URI",
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "graph": false,
+                  "legend": false,
+                  "tooltip": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "always",
+                "spanNulls": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 12,
+            "x": 12,
+            "y": 67
+          },
+          "id": 88,
+          "interval": "1m",
+          "options": {
+            "graph": {},
+            "legend": {
+              "calcs": [
+                "min",
+                "mean",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltipOptions": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "sum by (uri, method) (increase(http_server_requests_seconds_sum{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__rate_interval])) / sum by (uri, method) (increase(http_server_requests_seconds_count{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__rate_interval]))",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{method}} {{uri}}",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "title": "Avg. Response Time by URI",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "auto",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Num. Requests"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "short"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 139
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Method"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "URI"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 305
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Max. Duration"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 130
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Avg. Duration"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 127
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 78
+          },
+          "id": 90,
+          "interval": null,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Max. Duration"
+              }
+            ]
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "topk(10, max by(uri, method) (max_over_time(http_server_requests_seconds_max{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__range])))",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "round(sum by(uri, method) (increase(http_server_requests_seconds_count{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__range])))",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "B"
+            },
+            {
+              "expr": "sum by(uri, method) ( increase(http_server_requests_seconds_sum{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__range]) ) / sum by(uri, method) ( increase(http_server_requests_seconds_count{namespace=\"$namespace\",service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\"}[$__range]) )",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
+            }
+          ],
+          "timeFrom": null,
+          "title": "Slow Requests",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "Value #A": 5,
+                  "Value #B": 4,
+                  "Value #C": 6,
+                  "method": 1,
+                  "outcome": 3,
+                  "uri": 2
+                },
+                "renameByName": {
+                  "Time": "",
+                  "Value #A": "Max. Duration",
+                  "Value #B": "Num. Requests",
+                  "Value #C": "Avg. Duration",
+                  "method": "Method",
+                  "outcome": "Outcome",
+                  "uri": "URI"
+                }
+              }
+            },
+            {
+              "id": "filterByValue",
+              "options": {
+                "filters": [],
+                "match": "any",
+                "type": "exclude"
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "method"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 132
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "uri"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 352
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Method"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 80
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "URI"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 351
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Status"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 105
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Exception"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 154
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Occurences"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 110
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 78
+          },
+          "id": 92,
+          "options": {
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "expr": "topk(10, round(sum by(method, uri, status, exception) (increase(http_server_requests_seconds_count{namespace=\"$namespace\", service=\"$service\",uri!~\".*actuator.*\",uri=~\"/.*\",outcome!=\"SUCCESS\"}[$__range])))) > 0",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "URI by Exception Count",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "Value": 5,
+                  "exception": 4,
+                  "method": 1,
+                  "status": 3,
+                  "uri": 2
+                },
+                "renameByName": {
+                  "Value": "Occurences",
+                  "exception": "Exception",
+                  "method": "Method",
+                  "status": "Status",
+                  "uri": "URI"
+                }
+              }
+            }
+          ],
+          "type": "table"
         }
       ],
       "refresh": false,
@@ -2509,8 +3119,8 @@ data:
             "allValue": null,
             "current": {
               "selected": false,
-              "text": "edu-dev",
-              "value": "edu-dev"
+              "text": "etalon",
+              "value": "etalon"
             },
             "datasource": null,
             "definition": "label_values(http_server_requests_seconds_count, namespace)",
@@ -2535,6 +3145,37 @@ data:
             "tagsQuery": "",
             "type": "query",
             "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": true,
+              "text": "bpms",
+              "value": "bpms"
+            },
+            "datasource": null,
+            "definition": "label_values(http_server_requests_seconds_count{namespace=~\"$namespace\"}, service)",
+            "description": null,
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": "Service",
+            "multi": false,
+            "name": "service",
+            "options": [],
+            "query": {
+              "query": "label_values(http_server_requests_seconds_count{namespace=~\"$namespace\"}, service)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 2,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
           }
         ]
       },
@@ -2545,9 +3186,6 @@ data:
       "timepicker": {},
       "timezone": "",
       "title": "Registry Monitoring Dashboard",
-      "uid": "gLSn2vkNz",
-      "version": 175
+      "uid": "registry-monitoring",
+      "version": 3
     }
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-registry-monitoring

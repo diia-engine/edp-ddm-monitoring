@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-keycloak-x-microprofile-metrics
 data:
   keycloak-x-microprofile-metrics.json: |-
     {
@@ -4900,6 +4903,3 @@ data:
       "timezone": "browser",
       "title": "KeyCloak X MicroProfile Metrics"
     }
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-keycloak-x-microprofile-metrics

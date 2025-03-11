@@ -3,6 +3,7 @@ cloudProvider: {{ $cloudProvider }}
 dnsWildcard: {{ requiredEnv "dnsWildcard" }}
 
 global:
+  imageRegistry: '{{ env "dockerProxyRegistry" }}'
   storageClass: {{ if eq $cloudProvider "AWS" }}"gp2"{{ else }}{{ env "platformStorageClass" }}{{ end }}
   storageSize: 200Gi
   whiteListIP:

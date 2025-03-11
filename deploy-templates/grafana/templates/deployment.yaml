@@ -112,10 +112,13 @@ spec:
             - name: dashboards-provider
               mountPath: /opt/bitnami/grafana/conf/provisioning/dashboards
             {{- end }}
-            {{- range .Values.dashboardsConfigMaps }}
-            - name: {{ .configMapName }}
-              mountPath: /opt/bitnami/grafana/dashboards/{{ .fileName }}
-              subPath: {{ .fileName }}
+            {{- range $dashboardGroup := .Values.dashboardsConfigMaps }}
+            {{- $groupName := $dashboardGroup.group }}
+            {{- range $dashboard := $dashboardGroup.dashboards }}
+            - name: {{ $dashboard.configMapName }}
+              mountPath: /opt/bitnami/grafana/dashboards/{{ $groupName }}/{{ $dashboard.fileName }}
+              subPath: {{ $dashboard.fileName }}
+            {{- end }}
             {{- end }}
             {{- if .Values.datasources.secretName }}
             - name: datasources
@@ -191,10 +194,12 @@ spec:
             name: {{ include "common.names.fullname" . }}-provider
             {{- end }}
         {{- end }}
-        {{- range .Values.dashboardsConfigMaps }}
-        - name: {{ .configMapName }}
+        {{- range $dashboardGroup := .Values.dashboardsConfigMaps }}
+        {{- range $dashboard := $dashboardGroup.dashboards }}
+        - name: {{ $dashboard.configMapName }}
           configMap:
-            name: {{ .configMapName }}
+            name: {{ $dashboard.configMapName }}
+        {{- end }}
         {{- end }}
         {{- if .Values.datasources.secretName }}
         - name: datasources

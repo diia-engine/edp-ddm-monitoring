@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-crunchy-query-statistics
 data:
   query_statistics.json: |-
    {
@@ -1059,10 +1062,6 @@ data:
      },
      "timezone": "browser",
      "title": "Query Statistics",
-     "uid": "ZKoTOHDGk",
+     "uid": "query-statistics",
      "version": 1
    }
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: grafana-dashboard-crunchy-query-statistics
